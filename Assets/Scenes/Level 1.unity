@@ -2455,7 +2455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paddle: {fileID: 1660879039}
   xPush: 2
-  yPush: 15
+  yPush: 10
 --- !u!1 &769866302
 GameObject:
   m_ObjectHideFlags: 0
