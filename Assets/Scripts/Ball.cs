@@ -5,17 +5,23 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-
+    // config params
     [SerializeField] Paddle paddle;
     [SerializeField] float xPush = 2f;
     [SerializeField] float yPush = 15f;
+    [SerializeField] AudioClip[] ballSounds;
 
+    // state
     Vector2 paddleToBallDistance;
     bool hasLaunched = false;
+
+    // cached component references
+    AudioSource audioSource;
 
     void Start()
     {
         paddleToBallDistance = transform.position - paddle.transform.position;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -39,6 +45,15 @@ public class Ball : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(xPush, yPush);
             hasLaunched = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (hasLaunched)
+        {
+            AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
+            audioSource.PlayOneShot(clip);
         }
     }
 }
